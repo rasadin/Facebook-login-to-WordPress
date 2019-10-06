@@ -1,0 +1,24 @@
+We can easily pass values even on same/ different pages using the cookies shown in the code as follows (In my case, I'm using it with facebook integration) -
+
+function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    if (response.status === 'connected') {
+        // Logged into your app and Facebook.
+        FB.api('/me?fields=id,first_name,last_name,email', function (result) {
+            document.cookie = "fbdata = " + result.id + "," + result.first_name + "," + result.last_name + "," + result.email;
+            console.log(document.cookie);
+        });
+    }
+}
+
+
+And I've accessed it (in any file) using -
+
+<?php 
+    if(isset($_COOKIE['fbdata'])) { 
+        echo "welcome ".$_COOKIE['fbdata'];
+    }
+?>
+
+
+https://stackoverflow.com/questions/1917576/how-do-i-pass-javascript-variables-to-php
